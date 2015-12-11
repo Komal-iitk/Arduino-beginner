@@ -1,0 +1,15 @@
+
+void cam1all()
+{
+
+Mat tempFrame1;
+cap1.grab();
+cap1.retrieve(tempFrame1);
+
+pthread_mutex_lock(&frameLocker);
+frame1 = tempFrame1;
+pthread_mutex_unlock(&frameLocker);
+
+writer1.write(frame1);
+
+}

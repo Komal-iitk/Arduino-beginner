@@ -1,0 +1,25 @@
+
+void record()
+{
+
+Mat tempFrame0, tempFrame1, tempFrame2, tempFrame3;
+
+pthread_mutex_lock(&frameLocker);
+
+tempFrame0 = frame0[j-1];
+tempFrame1 = frame1[j-1];
+tempFrame2 = frame2[j-1];
+tempFrame3 = frame3[j-1];
+
+pthread_mutex_unlock(&frameLocker);
+
+if( !tempFrame0.empty() && !tempFrame1.empty() && !tempFrame2.empty() && !tempFrame3.empty() )
+{
+writer0.write(tempFrame0);
+writer1.write(tempFrame1);
+writer2.write(tempFrame2);
+writer3.write(tempFrame3);
+}
+
+}
+

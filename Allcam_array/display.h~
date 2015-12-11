@@ -1,0 +1,51 @@
+
+void display()
+{
+
+j++;
+
+if(j==10)
+{
+j=1;
+cout<<j<<endl;
+}
+else
+{
+cout<<j<<endl;
+}
+
+Mat currentFrame0, currentFrame1, currentFrame2, currentFrame3;
+
+cap0.grab();
+cap0.retrieve(currentFrame0);
+
+cap1.grab();
+cap1.retrieve(currentFrame1);
+
+cap2.grab();
+cap2.retrieve(currentFrame2);
+
+cap3.grab();
+cap3.retrieve(currentFrame3);
+
+pthread_mutex_lock(&frameLocker);
+
+frame0[j] = currentFrame0;
+frame1[j] = currentFrame1;
+frame2[j] = currentFrame2;
+frame3[j] = currentFrame3;
+
+pthread_mutex_unlock(&frameLocker);
+
+if( !currentFrame0.empty() && !currentFrame1.empty()  && !currentFrame2.empty()  && !currentFrame3.empty()  )
+{
+imshow("CAM 0", frame0[j]);
+imshow("CAM 1", frame1[j]);
+imshow("CAM 2", frame2[j]);
+imshow("CAM 3", frame3[j]);
+
+waitKey(1);
+}
+
+}
+
